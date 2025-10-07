@@ -20,10 +20,18 @@ def solution(id_list, report, k):
     # 정지된 사람들
     stopped = {user for user, c in counts.items() if c >= k}
     
+    # stopped = set() # 빈 집합 만들기 = set
+    # for user, c in counts.items():
+    #     if c >= k:
+    #         stopped.add(user)
+    
     # 각 유저별 메일 개수 계산
     answer = []
     for user in id_list:
-        cnt = sum(1 for target in reports[user] if target in stopped)
-        answer.append(cnt)
+        total = 0
+        for target in reports[user]:
+            if target in stopped:
+                total += 1
+        answer.append(total)
 
     return answer
